@@ -75,7 +75,6 @@ with open("equiposSalida.csv", "w", newline="") as archivo:
 
     print(liderTabla(dictEquipos) + "\n")
     for key, value in dictEquipos.items():
-        print(key, value)
         escritor.writerow(
             [contador, key, value["ganados"], value["empatados"], value["perdidos"], value["goles_favor"], value["goles_contra"], value["puntos"], value["diferencia_goles"]]
         )
