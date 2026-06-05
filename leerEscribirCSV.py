@@ -29,7 +29,23 @@ def ordenar(dictEquipos: dict):
     return nuevo_dict
 
 def liderTabla(dictEquipos):
-    return "Lider de la tabla: " + str(next(iter(dictEquipos)))
+    clave_mayor = next(iter(dictEquipos))
+    valores_mayor = next(iter(dictEquipos.values()))
+
+    for key, value in dictEquipos.items():
+        if int(value["puntos"]) > int(valores_mayor["puntos"]):
+            clave_mayor = key
+            valores_mayor = value
+    
+    mensaje_final = "Lider de la tabla:" + \
+    "\nequipo: " + str(clave_mayor) + \
+    "\nganados: " + str(valores_mayor["ganados"]) + \
+    "\nperdidos: " + str(valores_mayor["perdidos"]) + \
+    "\nempatados: " + str(valores_mayor["empatados"]) + \
+    "\npuntos: " + str(valores_mayor["puntos"]) + \
+    "\ndiferencia_goles: " + str(valores_mayor["diferencia_goles"])
+
+    return mensaje_final
 
 dictEquipos = {}
 with open("equiposChampions.csv", "r") as archivo:
@@ -57,9 +73,9 @@ with open("equiposSalida.csv", "w", newline="") as archivo:
 
     contador = 1
 
-    print(liderTabla(dictEquipos))
+    print(liderTabla(dictEquipos) + "\n")
     for key, value in dictEquipos.items():
-        print(f"{contador}. {key}, {value}")
+        print(key, value)
         escritor.writerow(
             [contador, key, value["ganados"], value["empatados"], value["perdidos"], value["goles_favor"], value["goles_contra"], value["puntos"], value["diferencia_goles"]]
         )
